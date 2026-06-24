@@ -1,0 +1,232 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: radial-gradient(circle at top, #5f6caf 0%, #364273 45%, #121827 100%);
+    color: #f4f7fe;
+}
+
+.page {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.hero {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 36px 32px;
+    margin-bottom: 28px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+}
+
+.eyebrow {
+    display: inline-block;
+    color: #a9b3ff;
+    font-size: 0.90rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(2rem, 3vw, 3.4rem);
+    line-height: 1.05;
+}
+
+.hero p {
+    margin: 16px 0 0;
+    max-width: 700px;
+    font-size: 1rem;
+    color: #dae2ff;
+    line-height: 1.75;
+}
+
+.card {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.upload-panel,
+.preview-panel {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+    padding: 28px;
+    backdrop-filter: blur(14px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+}
+
+.file-drop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 240px;
+    width: 100%;
+    border: 2px dashed rgba(255, 255, 255, 0.32);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    transition: border-color 0.25s ease, background-color 0.25s ease;
+    text-align: center;
+    padding: 30px;
+}
+
+.file-drop:hover,
+.file-drop:focus-within {
+    border-color: rgba(129, 149, 255, 0.75);
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.file-drop input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.file-drop-title {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.file-drop-subtitle {
+    color: #d0d6ff;
+    font-size: 0.95rem;
+}
+
+#predictButton {
+    margin-top: 22px;
+    width: 100%;
+    border: none;
+    border-radius: 18px;
+    padding: 14px 18px;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #1d2147;
+    background: linear-gradient(135deg, #8c9eff, #4166ff);
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+#predictButton:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 35px rgba(66, 102, 255, 0.28);
+}
+
+.helper-text {
+    margin-top: 12px;
+    color: #b8c2ff;
+    font-size: 0.92rem;
+}
+
+.preview-panel {
+    display: grid;
+    gap: 22px;
+}
+
+.preview-card,
+.result-card {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 22px;
+    padding: 22px;
+    min-height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.preview-label {
+    position: absolute;
+    margin-top: -14px;
+    margin-left: 16px;
+    padding: 4px 10px;
+    background: rgba(20, 29, 64, 0.95);
+    border-radius: 999px;
+    font-size: 0.82rem;
+    color: #93a6ff;
+}
+
+.preview-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.preview-card img {
+    max-width: 100%;
+    max-height: 330px;
+    border-radius: 18px;
+    object-fit: contain;
+    display: block;
+}
+
+.result-text {
+    width: 100%;
+    font-size: 1.1rem;
+    color: #e7ebff;
+    text-align: center;
+    line-height: 1.7;
+}
+
+.loader {
+    margin-top: 20px;
+    width: 56px;
+    height: 56px;
+    border: 6px solid rgba(255, 255, 255, 0.16);
+    border-top: 6px solid #7c90ff;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.hidden {
+    display: none;
+}
+
+.footer {
+    margin-top: 28px;
+    text-align: center;
+    color: #b3c0f7;
+    font-size: 0.94rem;
+}
+
+@media (max-width: 860px) {
+    .card {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 560px) {
+    .page {
+        padding: 18px;
+    }
+
+    .hero {
+        padding: 24px;
+    }
+
+    .upload-panel,
+    .preview-panel {
+        padding: 22px;
+    }
+
+    .file-drop {
+        min-height: 200px;
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}

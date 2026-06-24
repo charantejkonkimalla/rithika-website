@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Detector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="page">
+        <section class="hero">
+            <span class="eyebrow">AI Image Detector</span>
+            <h1>Detect if an image is AI generated or real</h1>
+            <p>Upload an image and the model will analyze whether it is AI generated or a real photograph.</p>
+        </section>
+
+        <div class="card">
+            <div class="upload-panel">
+                <div class="file-drop" tabindex="0">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <span class="file-drop-title">Choose an image</span>
+                    <span class="file-drop-subtitle">or drag and drop here</span>
+                </div>
+                <button id="predictButton" onclick="predictImage()">Detect Image</button>
+                <p class="helper-text">Supported formats: JPG, JPEG, PNG</p>
+            </div>
+
+            <div class="preview-panel">
+                <div class="preview-card">
+                    <span class="preview-label">Preview</span>
+                    <img id="preview" src="" alt="No image selected">
+                </div>
+                <div class="result-card">
+                    <div class="result-text" id="result">No image selected yet.</div>
+                    <div id="loader" class="loader hidden"></div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">Built with TensorFlow, Flask, and OpenCV</footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
