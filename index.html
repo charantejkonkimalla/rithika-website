@@ -1,46 +1,82 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Image Detector</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="page">
-        <section class="hero">
-            <span class="eyebrow">AI Image Detector</span>
-            <h1>Detect if an image is AI generated or real</h1>
-            <p>Upload an image and the model will analyze whether it is AI generated or a real photograph.</p>
-        </section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>For Rithika ✨</title>
+    <meta
+      name="description"
+      content="A cute romantic surprise for Rithika with a reminder, a playful quiz, and a celebratory finale."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="screen1" class="screen active" aria-live="polite">
+        <div class="bg-decor bg-decor-one"></div>
+        <div class="bg-decor bg-decor-two"></div>
 
-        <div class="card">
-            <div class="upload-panel">
-                <div class="file-drop" tabindex="0">
-                    <input type="file" id="imageInput" accept="image/*">
-                    <span class="file-drop-title">Choose an image</span>
-                    <span class="file-drop-subtitle">or drag and drop here</span>
-                </div>
-                <button id="predictButton" onclick="predictImage()">Detect Image</button>
-                <p class="helper-text">Supported formats: JPG, JPEG, PNG</p>
-            </div>
-
-            <div class="preview-panel">
-                <div class="preview-card">
-                    <span class="preview-label">Preview</span>
-                    <img id="preview" src="" alt="No image selected">
-                </div>
-                <div class="result-card">
-                    <div class="result-text" id="result">No image selected yet.</div>
-                    <div id="loader" class="loader hidden"></div>
-                </div>
-            </div>
+        <div class="note-card" role="dialog" aria-label="Reminder note">
+          <div class="note-pin"></div>
+          <p class="note-text">
+            In case no one has told you this today, you’re the prettiest and most beautiful girl I know. And I know I’m always saying that I’m funnier than you, but honestly, for me, it’s you. You’re genuinely the funniest person I know. I’ve never had to fake a laugh around you not even once.
+          </p>
+          <button id="startButton" class="primary-btn" type="button">
+            thanks charan, youre handsome too
+          </button>
+          <p class="small-note">Go on, click it. I know you want to 😌</p>
         </div>
+      </section>
 
-        <footer class="footer">Built with TensorFlow, Flask, and OpenCV</footer>
+      <section id="screen2" class="screen" aria-live="polite">
+        <div class="bg-decor bg-decor-one"></div>
+        <div class="bg-decor bg-decor-two"></div>
+
+        <div class="question-wrap">
+          <div class="question-badge">little quiz</div>
+          <h2 class="question">whos the true gentlemen from the below people</h2>
+          <div class="choices" role="group" aria-label="Answer choices">
+            <button class="choice-btn wrong" type="button" data-choice="mahatma gandhi">mahatma gandhi</button>
+            <button class="choice-btn wrong" type="button" data-choice="modi">modi</button>
+            <button class="choice-btn correct" type="button" data-choice="jude and charan">jude and charan</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="screen3" class="screen" aria-live="polite">
+        <canvas id="fireworksCanvas" aria-hidden="true"></canvas>
+
+        <div class="letter-card">
+          <div class="letter-inner">
+            <div class="letter-topper">special pass</div>
+            <h3>CONGRATS! 🎉</h3>
+            <p class="letter-text">
+              congrats you just won a game pass<br />
+              to watch charan play and maybe jude
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="wrongModal" class="modal hidden" aria-hidden="true">
+      <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="warningTitle">
+        <div class="modal-emoji">⚠️</div>
+        <h3 id="warningTitle">WRONG ANSWER</h3>
+        <p class="modal-line">Nice try 😭</p>
+        <p class="modal-line">Please choose the correct answer:<br />Jude and Charan.</p>
+        <button id="modalClose" class="secondary-btn" type="button">Okay, I'll choose correctly 😌</button>
+      </div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <script src="script.js"></script>
-</body>
+  </body>
 </html>

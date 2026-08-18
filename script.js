@@ -1,55 +1,133 @@
-const fileInput = document.getElementById('imageInput');
-const resultElement = document.getElementById('result');
-const previewImage = document.getElementById('preview');
-const loader = document.getElementById('loader');
-const predictButton = document.getElementById('predictButton');
+const screen1 = document.getElementById('screen1');
+const screen2 = document.getElementById('screen2');
+const screen3 = document.getElementById('screen3');
+const startButton = document.getElementById('startButton');
+const wrongModal = document.getElementById('wrongModal');
+const modalClose = document.getElementById('modalClose');
+const fireworksCanvas = document.getElementById('fireworksCanvas');
 
-fileInput.addEventListener('change', () => {
-    if (fileInput.files.length === 0) {
-        previewImage.src = '';
-        previewImage.alt = 'No image selected';
-        resultElement.textContent = 'No image selected yet.';
-        return;
+const screens = [screen1, screen2, screen3];
+let fireworksTimerId = null;
+let confettiInstance = null;
+
+function showScreen(index) {
+  screens.forEach((screen) => {
+    screen.classList.remove('active', 'screen-leave');
+  });
+
+  const selectedScreen = screens[index - 1];
+  if (selectedScreen) {
+    selectedScreen.classList.add('active');
+  }
+
+  if (index === 3) {
+    startFireworks();
+  } else {
+    stopFireworks();
+  }
+}
+
+function openWrongModal() {
+  wrongModal.classList.remove('hidden');
+  wrongModal.setAttribute('aria-hidden', 'false');
+
+  const card = wrongModal.querySelector('.modal-card');
+  card.animate(
+    [
+      { transform: 'translateY(10px) scale(0.96)', opacity: 0.3 },
+      { transform: 'translateY(-8px) scale(1.02)', opacity: 1 },
+      { transform: 'translateY(0) scale(1)', opacity: 1 }
+    ],
+    {
+      duration: 460,
+      easing: 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+      iterations: 1
     }
+  );
+}
 
-    const file = fileInput.files[0];
-    previewImage.src = URL.createObjectURL(file);
-    previewImage.alt = file.name;
-    resultElement.textContent = 'Ready to detect.';
+function closeWrongModal() {
+  wrongModal.classList.add('hidden');
+  wrongModal.setAttribute('aria-hidden', 'true');
+}
+
+startButton.addEventListener('click', () => {
+  screen1.classList.add('screen-leave');
+  setTimeout(() => showScreen(2), 260);
 });
 
-async function predictImage() {
-    if (fileInput.files.length === 0) {
-        resultElement.textContent = 'Please select an image first.';
-        return;
+document.querySelectorAll('.choice-btn').forEach((button) => {
+  button.addEventListener('click', () => {
+    const choice = button.dataset.choice;
+
+    if (choice === 'jude and charan') {
+      screen2.classList.add('screen-leave');
+      setTimeout(() => showScreen(3), 320);
+      return;
     }
 
-    const file = fileInput.files[0];
-    const formData = new FormData();
-    formData.append('file', file);
+    openWrongModal();
+  });
+});
 
-    predictButton.disabled = true;
-    predictButton.textContent = 'Detecting...';
-    loader.classList.remove('hidden');
-    resultElement.textContent = 'Analyzing image, please wait...';
+modalClose.addEventListener('click', closeWrongModal);
+wrongModal.addEventListener('click', (event) => {
+  if (event.target === wrongModal) {
+    closeWrongModal();
+  }
+});
 
-    try {
-        const response = await fetch('http://127.0.0.1:5000/predict', {
-            method: 'POST',
-            body: formData,
-        });
+function startFireworks() {
+  if (!window.confetti) {
+    console.error('Confetti library did not load.');
+    return;
+  }
 
-        if (!response.ok) {
-            throw new Error(Server returned ${response.status});
-        }
+  if (fireworksTimerId) {
+    return;
+  }
 
-        const data = await response.json();
-        resultElement.innerHTML = <strong>${data.prediction}</strong><br>Confidence: ${Number(data.confidence).toFixed(4)};
-    } catch (error) {
-        resultElement.textContent = Error: ${error.message};
-    } finally {
-        predictButton.disabled = false;
-        predictButton.textContent = 'Detect Image';
-        loader.classList.add('hidden');
-    }
+  confettiInstance = confetti.create(fireworksCanvas, {
+    resize: true,
+    useWorker: true,
+    disableForReducedMotion: false
+  });
+
+  const shoot = () => {
+    confettiInstance({
+      particleCount: 28,
+      spread: 90,
+      startVelocity: 35,
+      origin: { x: Math.random(), y: Math.random() * 0.5 },
+      colors: ['#ff70b7', '#ffd166', '#7ad7ff', '#9ef0d1', '#f7b2ff'],
+      ticks: 180
+    });
+  };
+
+  const burst = () => {
+    confettiInstance({
+      particleCount: 90,
+      spread: 120,
+      origin: { x: 0.5, y: 0.45 },
+      colors: ['#ff83b7', '#ffcf70', '#85d6ff', '#a7f1c8', '#ffb4d9'],
+      ticks: 220
+    });
+  };
+
+  burst();
+  fireworksTimerId = setInterval(shoot, 700);
+
+  for (let i = 0; i < 5; i += 1) {
+    setTimeout(burst, i * 220);
+  }
 }
+
+function stopFireworks() {
+  if (fireworksTimerId) {
+    clearInterval(fireworksTimerId);
+    fireworksTimerId = null;
+  }
+}
+
+showScreen(1);
+
